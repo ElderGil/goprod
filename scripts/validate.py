@@ -3,6 +3,7 @@
 bundled scripts are syntactically valid bash. Exit 1 on any failure."""
 import json
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -11,6 +12,9 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 errors = []
+# Resolve bash through PATH order. On Windows, subprocess would otherwise find
+# C:\Windows\System32\bash.exe (the WSL launcher) before Git Bash.
+BASH = shutil.which("bash")
 
 
 def fail(msg):
@@ -58,9 +62,13 @@ for skill in skills:
     if lines > 500:
         fail(f"{skill.name}: SKILL.md has {lines} lines (keep under 500)")
     for script in skill.rglob("*.sh"):
-        r = subprocess.run(["bash", "-n", str(script)], capture_output=True, text=True)
+        rel = script.relative_to(ROOT).as_posix()
+        if BASH is None:
+            fail(f"{rel}: bash not found on PATH, cannot syntax-check")
+            continue
+        r = subprocess.run([BASH, "-n", rel], cwd=ROOT, capture_output=True, text=True)
         if r.returncode != 0:
-            fail(f"{script.relative_to(ROOT)}: bash syntax error: {r.stderr.strip()}")
+            fail(f"{rel}: bash syntax error (exit {r.returncode}, bash={BASH}): {r.stderr.strip()}")
 
 for e in errors:
     print(f"FAIL {e}")
