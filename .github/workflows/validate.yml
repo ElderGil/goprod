@@ -1,0 +1,34 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    defaults:
+      run:
+        # On Windows this is Git Bash, the same shell Claude Code uses there.
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Pick Python
+        # Windows runners ship "python", not "python3".
+        run: echo "PY=$(command -v python3 || command -v python)" >> "$GITHUB_ENV"
+      - name: Install PyYAML
+        run: '"$PY" -m pip install --quiet pyyaml || "$PY" -m pip install --quiet --break-system-packages pyyaml'
+      - name: Validate manifests and skills
+        run: '"$PY" scripts/validate.py'
+      - name: audit-distance behavior
+        run: bash tests/audit-distance.test.sh
+      - name: detect-signals emits valid JSON
+        run: bash skills/ship-readiness/scripts/detect-signals.sh . | "$PY" -m json.tool > /dev/null

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace-manifest.json",
+  "name": "goprod",
+  "owner": {
+    "name": "Elder Gil",
+    "url": "https://github.com/ElderGil"
+  },
+  "description": "Install goprod as a Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "goprod",
+      "source": "./",
+      "description": "Ship to production fast with a real safety net: risk-tiered readiness check, hostile PR and issue audits, test-first resolution, post-merge audit, dependency bumps, and releases gated on exact-SHA CI.",
+      "license": "MIT",
+      "keywords": [
+        "delivery",
+        "release",
+        "code-review",
+        "pr-audit",
+        "ci",
+        "rollback",
+        "spec-kit"
+      ]
+    }
+  ]
+}

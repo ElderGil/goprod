@@ -1,0 +1,8 @@
+# Keep LF line endings on every OS. Git on Windows often converts to CRLF on
+# checkout, and bash fails on scripts with CRLF ("$'\r': command not found").
+* text=auto eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
