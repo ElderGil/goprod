@@ -41,6 +41,7 @@ it: a good skill is your own. Read these, then adapt them.
 | Execution | `dep-bump` | Dependabot/Renovate PRs, batched into one update. |
 | Gate | `post-merge-audit` | Before pushing a batch of more than 3 changes, and before any release. |
 | Publication | `release` | Only when you ask. |
+| Feedback | `usage-report` | When piloting the kit: logs each skill run, then writes a sanitized report. |
 
 Every flow skill reads `docs/ship-readiness.md` first; the risk tier (T0–T3)
 sets how strict it is. Without a profile they assume T1 and tell you.
@@ -72,14 +73,43 @@ Start a new session afterwards. Update later with
 `/plugin marketplace update goprod`. Skills show up namespaced
 (`goprod:pr-audit`); asking "run pr-audit" works as well.
 
-### Other agents (Codex, etc.) or manual install
+The Claude Code extension for VS Code shares the same configuration: install
+once (in the chat or with `claude plugin …` in the integrated terminal) and it
+works in both.
+
+### Other agents (Codex, Copilot, etc.)
+
+`SKILL.md` is an open format that several agents read, but plugin install is
+Claude Code only. Copy the skill folders into the directory your agent reads
+skills from (Codex: `~/.codex/skills` or `~/.agents/skills`; check your
+agent's docs for its path).
+
+macOS / Linux:
 
 ```sh
 git clone https://github.com/ElderGil/goprod.git
-for s in goprod/skills/*/; do
-  ln -sfn "$PWD/$s" "$HOME/.claude/skills/$(basename "$s")"   # or ~/.codex/skills, ~/.agents/skills
-done
+mkdir -p ~/.codex/skills && cp -R goprod/skills/* ~/.codex/skills/
 ```
+
+Windows (PowerShell; copying avoids symlinks, which need special permission):
+
+```powershell
+git clone https://github.com/ElderGil/goprod.git
+New-Item -ItemType Directory -Force "$HOME\.codex\skills" | Out-Null
+Copy-Item -Recurse -Force goprod\skills\* "$HOME\.codex\skills\"
+```
+
+Update with `git pull` and copy again.
+
+Two things work less well outside Claude Code:
+
+- **Bash scripts on Windows.** Claude Code runs commands in Git Bash, which is
+  what CI tests. Agents that run PowerShell may resolve `bash` to the WSL
+  launcher or not find it at all. Run the agent inside WSL, or make sure it
+  calls `C:\Program Files\Git\bin\bash.exe`.
+- **Independent review.** `pr-audit` and `post-merge-audit` use an isolated
+  subagent when the auditor also wrote the change. Agents without subagents
+  fall back to a report stamped `SELF-REVIEW`, which cannot approve at T2+.
 
 ## Requirements
 
@@ -108,9 +138,15 @@ done
 
 ## Feedback
 
-After using it on a real project, ask your agent for a usage report: what
-worked, what broke, and what it had to improvise, with evidence. Open an issue
-with it. The kit was shaped by exactly such a report.
+The kit was shaped by a real usage report, and it improves the same way.
+
+1. At the start of a session: `start goprod usage log`. A local, git-ignored
+   log (`.goprod/usage-log.md`) is created, and every goprod skill appends
+   what it did, where it did not fit, and what broke.
+2. At the end: `write the goprod usage report`. The agent turns the log into
+   a structured report, removes confidential data (company, customer, hosts,
+   secrets, paths), and shows it to you before anything is shared.
+3. Send it with the **Usage report** issue form on this repository.
 
 ## Contributing
 

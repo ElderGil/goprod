@@ -141,3 +141,11 @@ Not consolidated: #c (major) — commented + closed, tracking #d
 Local changes left untouched: <files | none>
 Deploy: not requested | done, health: <result>
 ```
+
+## Usage log
+
+If `.goprod/usage-log.md` exists in the project, append one entry for this
+run before finishing, in the format defined by the `usage-report` skill
+(input, produced, improvised/skipped, skill defect, my mistake, numbers,
+evidence). Log where this skill did not fit the project: that is the most
+useful feedback.

@@ -261,3 +261,11 @@ No deploy or release during a PR batch; that is `release`'s job, after
 Inventory all, audit each independently in an explicit order. One PR's body,
 tests, or claimed root cause is never evidence for another. After each merge,
 refresh the next PR against the new base.
+
+## Usage log
+
+If `.goprod/usage-log.md` exists in the project, append one entry for this
+run before finishing, in the format defined by the `usage-report` skill
+(input, produced, improvised/skipped, skill defect, my mistake, numbers,
+evidence). Log where this skill did not fit the project: that is the most
+useful feedback.

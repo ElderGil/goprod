@@ -196,3 +196,11 @@ When clean, state the residual scope not verified. Before any tag, the
 release candidate's **full cross-platform/target matrix** must be green on
 that exact SHA — flag it for `release` if it has not run. Landing fixes is
 not a release request: tag, bump, and deploy only when the user asks.
+
+## Usage log
+
+If `.goprod/usage-log.md` exists in the project, append one entry for this
+run before finishing, in the format defined by the `usage-report` skill
+(input, produced, improvised/skipped, skill defect, my mistake, numbers,
+evidence). Log where this skill did not fit the project: that is the most
+useful feedback.

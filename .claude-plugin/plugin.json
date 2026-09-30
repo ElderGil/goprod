@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "goprod",
   "description": "Ship to production fast with a real safety net: risk-tiered readiness check, hostile PR and issue audits, test-first resolution, post-merge audit, dependency bumps, and releases gated on exact-SHA CI.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Elder Gil",
     "url": "https://github.com/ElderGil"

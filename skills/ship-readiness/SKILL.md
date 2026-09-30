@@ -234,3 +234,11 @@ Mode: quick | deep | refresh (<delta summary>)
   when the evidence supports it.
 - Not a substitute for the user's judgment on how much speed their context
   tolerates. The report says what the net can catch; the user decides the pace.
+
+## Usage log
+
+If `.goprod/usage-log.md` exists in the project, append one entry for this
+run before finishing, in the format defined by the `usage-report` skill
+(input, produced, improvised/skipped, skill defect, my mistake, numbers,
+evidence). Log where this skill did not fit the project: that is the most
+useful feedback.

@@ -191,3 +191,11 @@ report. Never compress the left-behind list to a count.
 
 If any step fails (gate red, audit finding reopened, missing evidence), stop
 and report the blocker instead of pushing.
+
+## Usage log
+
+If `.goprod/usage-log.md` exists in the project, append one entry for this
+run before finishing, in the format defined by the `usage-report` skill
+(input, produced, improvised/skipped, skill defect, my mistake, numbers,
+evidence). Log where this skill did not fit the project: that is the most
+useful feedback.

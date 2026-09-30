@@ -5,6 +5,18 @@ Fixed → patch, Added → minor, Changed (breaking) → major.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-30
+
+### Added
+
+- `usage-report` skill: a local, git-ignored usage log that every goprod skill
+  appends to, and a sanitized report (confidential data replaced with
+  placeholders) shown for approval before sharing.
+- "Usage report" issue form on the repository.
+- README: install notes for the VS Code extension and for other agents
+  (Codex, Copilot), including Windows copy commands and the two limits
+  outside Claude Code (bash on Windows, independent review).
+
 ## [0.1.0] - 2026-09-30
 
 ### Added
@@ -32,5 +44,6 @@ Fixed → patch, Added → minor, Changed (breaking) → major.
   `detect-signals` JSON check, on Linux, macOS, and Windows (Git Bash).
 - `.gitattributes` forcing LF line endings so scripts run on Windows checkouts.
 
-[Unreleased]: https://github.com/ElderGil/goprod/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/ElderGil/goprod/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/ElderGil/goprod/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/ElderGil/goprod/releases/tag/v0.1.0

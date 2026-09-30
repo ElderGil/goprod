@@ -154,3 +154,11 @@ skipped audit and why.
 - Never rewrite published tags or release history.
 - Any surprise (version mismatch, unexpected commits, strategy ambiguity) is
   stop-and-confirm, not a judgment call.
+
+## Usage log
+
+If `.goprod/usage-log.md` exists in the project, append one entry for this
+run before finishing, in the format defined by the `usage-report` skill
+(input, produced, improvised/skipped, skill defect, my mistake, numbers,
+evidence). Log where this skill did not fit the project: that is the most
+useful feedback.
